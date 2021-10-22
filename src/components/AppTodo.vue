@@ -10,20 +10,23 @@
         </button>
       </div>
       <AppTodoForm/>
-
+      <AppTodoList/>
     </div>
   </div>
 </template>
 
 <script>
+
 import { provide, ref, } from "vue";
 
 import AppTodoForm from "@/components/AppTodoForm";
+import AppTodoList from "@/components/AppTodoList";
 
 export default {
   name: "AppTodo",
   components: {
     AppTodoForm,
+    AppTodoList
   },
   setup() {
     const todos = ref([]);
