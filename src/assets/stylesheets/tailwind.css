@@ -2,4 +2,82 @@
 
 @tailwind components;
 
+/* Add any custom CSS here */
+
+:root {
+  @apply light;
+}
+
+.light {
+  --color-fore-primary: #ffffff;
+  --color-fore-secondary: #494c6b;
+  --color-fore-tertiary: #d1d2da;
+  --color-fore-test: #9495a5;
+
+  --color-back-primary: #fafafa;
+  --color-back-secondary: #ffffff;
+  --color-back-tertiary: #e3e4f1;
+
+  /* --color-accent: #3a7bfd;
+  --color-back-primary: #e4e5f1;
+  --color-back-secondary: #fafafa; */
+}
+
+.dark {
+  /* --color-accent: #3a7bfd;
+  --color-fore-secondary: #e4e5f1;
+  --color-back-primary: #161722;
+  --color-back-secondary: #25273c; */
+}
+
+
+@font-face {
+  font-family: "josefin-sans";
+  src: url("./../fonts/josefin-sans/thin.ttf");
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "josefin-sans";
+  src: url("./../fonts/josefin-sans/extra-light.ttf");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "josefin_sans";
+  src: url("./../fonts/josefin-sans/light.ttf");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "josefin-sans";
+  src: url("./../fonts/josefin-sans/regular.ttf");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "josefin-sans";
+  src: url("./../fonts/josefin-sans/medium.ttf");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "josefin-sans";
+  src: url("./../fonts/josefin-sans/semi-bold.ttf");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "josefin-sans";
+  src: url("./../fonts/josefin-sans/bold.ttf");
+  font-weight: 700;
+  font-style: normal;
+}
+
 @tailwind utilities;
