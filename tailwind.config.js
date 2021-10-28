@@ -1,11 +1,34 @@
 module.exports = {
   purge: { content: ['./public/**/*.html', './src/**/*.vue'] },
-  darkMode: false, // or 'media' or 'class'
+  darkMode: 'class',
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        
+        'back-primary': 'var(--color-back-primary)',
+        'back-secondary': 'var(--color-back-secondary)',
+        'back-tertiary': 'var(--color-back-tertiary)',
+        
+        'fore-primary':  'var(--color-fore-primary)',
+        'fore-secondary': 'var(--color-fore-secondary)',
+        'fore-tertiary': 'var(--color-fore-tertiary)',
+      },
+      fontFamily: {
+        "josefin-sans": ["josefin-sans", "sans-serif"],
+      },
+      height: {
+        '6.25': '1.5625rem',
+      },
+      width: {
+        '6.25': '1.5625rem',
+      },
+    },
   },
   variants: {
-    extend: {},
+    extend: {
+      visibility: ['checked',],
+      borderRadius: ['first',],
+    },
   },
   plugins: [],
 }
