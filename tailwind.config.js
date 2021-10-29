@@ -3,6 +3,9 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
+      backgroundImage: {
+        "gradient-primary": "linear-gradient(135deg,#5df,#c058f3)",
+      },
       colors: {
         
         'back-primary': 'var(--color-back-primary)',
