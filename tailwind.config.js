@@ -11,10 +11,15 @@ module.exports = {
         'back-primary': 'var(--color-back-primary)',
         'back-secondary': 'var(--color-back-secondary)',
         'back-tertiary': 'var(--color-back-tertiary)',
-        
+
+        "accent": "var(--color-accent)",
+
         'fore-primary':  'var(--color-fore-primary)',
         'fore-secondary': 'var(--color-fore-secondary)',
         'fore-tertiary': 'var(--color-fore-tertiary)',
+      },
+      flex: {
+        "1-0-full": "1 0 100%",
       },
       fontFamily: {
         "josefin-sans": ["josefin-sans", "sans-serif"],

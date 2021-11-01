@@ -13,6 +13,8 @@
   --color-fore-secondary: #9495a5;
   --color-fore-tertiary: #d1d2da;
 
+  --color-accent: #3a7cfd;
+
   --color-back-primary: #fafafa;
   --color-back-secondary: #ffffff;
   --color-back-tertiary: #e3e4f1;
@@ -22,6 +24,8 @@
   --color-fore-primary: #c8cbe7; 
   --color-fore-secondary: #4d5067;
   --color-fore-tertiary: #5b5e7e;
+
+  --color-accent: #3a7cfd;
 
   --color-back-primary: #171823;
   --color-back-secondary: #25273d;

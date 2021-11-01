@@ -1,37 +1,154 @@
 <template>
-  <div class="bg-red-700 max-w-xl mx-auto my-20">
-    <div class="p-4">
-      <div class="flex justify-between mb-6">
-        <h1>Todo</h1>
-        <button>
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-          </svg>
-        </button>
+  <div class="w-full h-full relative min-h-screen font-josefin-sans bg-back-primary">
+    <div class="w-full h-72" :class="theme == 'light' ? 'bg-light' : 'bg-dark'"></div>
+    <div class="absolute top-0 w-full h-full">
+      <div class="max-w-xl mx-auto my-20">
+        <div class="p-4">
+          <!-- init head list -->
+          <div class="flex justify-between mb-6">
+            <h1 class="text-white text-4xl tracking-widest font-bold">TODO</h1>
+            <AppButtomTheme/>
+          </div>
+          <!-- init head list -->
+
+          <!-- init body list -->
+          <div>
+            <AppTodoForm/>
+            <AppTodoList customStyles="mt-5 rounded-t-lg"/>
+          </div>
+          <!-- end body list -->
+
+          <!-- init footer list -->
+          <div class="flex flex-wrap justify-between items-center rounded-b-lg text-fore-tertiary">
+            <div class="py-4 pl-5 flex-1 flex bg-back-secondary rounded-bl-lg">
+              <span class="text-sm">{{ counterTodosIncompleted }} Items left</span>
+            </div>
+
+            <div class="py-4 px-5 flex flex-1-0-full justify-center order-last rounded-lg text-sm  md:flex-none mt-4 bg-back-secondary md:mt-0 md:px-0 md:order-none md:rounded-none">
+              <button
+                @click="changeTodosFilter('all')"
+                :class="{ 'text-accent': filterTodosBy === 'all' }"
+                class="font-bold hover:text-white rounded-lg mx-2 outline-none focus:shadow-outline"
+              >
+                All
+              </button>
+              <button
+                @click="changeTodosFilter('incomplete')"
+                :class="{ 'text-accent': filterTodosBy === 'incomplete' }"
+                class="font-bold hover:text-white rounded-lg mx-2 outline-none focus:shadow-outline"
+              >
+                Incomplete
+              </button>
+              <button
+                @click="changeTodosFilter('completed')"
+                :class="{ 'text-accent': filterTodosBy === 'completed' }"
+                class="font-bold hover:text-white rounded-lg mx-2 outline-none focus:shadow-outline"
+              >
+                Completed
+              </button>
+            </div>
+
+            <div class="py-4 pr-5 flex-1 flex justify-end bg-back-secondary rounded-br-lg">
+              <button
+                @click="removeTodosCompleted"
+                class="text-right hover:text-white text-sm rounded-lg mx-0 outline-none focus:shadow-outline"
+              >
+                Clear completed
+              </button>
+            </div>
+          </div>
+          <!-- init footer list -->
+        </div>
       </div>
-      <AppTodoForm/>
-      <AppTodoList/>
     </div>
   </div>
 </template>
 
 <script>
 
-import { provide, ref, } from "vue";
+import { computed, provide, ref, onBeforeMount, watchEffect, } from "vue";
 
+import AppButtomTheme from "@/components/AppButtomTheme";
 import AppTodoForm from "@/components/AppTodoForm";
 import AppTodoList from "@/components/AppTodoList";
 
 export default {
   name: "AppTodo",
   components: {
+    AppButtomTheme,
     AppTodoForm,
     AppTodoList
   },
   setup() {
     const todos = ref([]);
+    const theme = ref(null);
+    const filterTodosBy = ref("all");
+
+    onBeforeMount(() => {
+      theme.value = getInitialTheme();
+    });
+
+    const getInitialTheme = () => {
+      if (typeof window !== 'undefined' && window.localStorage) {
+
+        const storedPrefs = window.localStorage.getItem('color-theme');
+        if (typeof storedPrefs === 'string') {
+          return storedPrefs
+        }
+
+        const userMedia = window.matchMedia('(prefers-color-scheme: dark)');
+        if (userMedia.matches) {
+          return 'dark'
+        }
+      }
+
+      return 'light'
+    };
+
+    const counterTodosIncompleted = computed(() => {
+      return todos.value.filter(todo => todo.completed === false).length;
+    });
+
+    const changeTodosFilter = (filter) => {
+      filterTodosBy.value = filter;
+    };
+
+    watchEffect(() => {
+      theme.value === "light"
+        ? document.querySelector("html").classList.remove("dark")
+        : document.querySelector("html").classList.add("dark");
+    })
 
     provide("todos", todos);
+    provide("filterTodosBy", filterTodosBy);
+    provide("theme", theme);
+
+    return { changeTodosFilter, counterTodosIncompleted, filterTodosBy, theme, todos };
   },
 }
 </script>
+
+<style scoped>
+/* Issue */
+/* https://github.com/tailwindlabs/tailwindcss/issues/2749#issuecomment-736714254 */
+
+.bg-dark {
+  @apply bg-cover bg-center;
+  background-image: url('~@/assets/images/bg-mobile-dark.jpg');
+}
+
+.bg-light {
+  @apply bg-cover bg-center;
+  background-image: url('~@/assets/images/bg-mobile-light.jpg');
+}
+
+@screen md {
+  .bg-dark {
+    background-image: url('~@/assets/images/bg-desktop-dark.jpg');
+  }
+
+  .bg-light {
+    background-image: url('~@/assets/images/bg-desktop-light.jpg');
+  }
+}
+</style>
