@@ -88,6 +88,10 @@ export default {
       theme.value = getInitialTheme();
     });
 
+    if (localStorage.getItem("todos")) {
+      todos.value = JSON.parse(localStorage.getItem("todos"));
+    }
+
     const getInitialTheme = () => {
       if (typeof window !== 'undefined' && window.localStorage) {
 
@@ -121,6 +125,9 @@ export default {
       theme.value === "light"
         ? document.querySelector("html").classList.remove("dark")
         : document.querySelector("html").classList.add("dark");
+
+
+      localStorage.setItem("todos", JSON.stringify(todos.value));
     });
 
     provide("todos", todos);
