@@ -113,17 +113,28 @@ export default {
       filterTodosBy.value = filter;
     };
 
+    const removeTodosCompleted = () => {
+      todos.value = todos.value.filter(todo => todo.completed == false);
+    };
+
     watchEffect(() => {
       theme.value === "light"
         ? document.querySelector("html").classList.remove("dark")
         : document.querySelector("html").classList.add("dark");
-    })
+    });
 
     provide("todos", todos);
     provide("filterTodosBy", filterTodosBy);
     provide("theme", theme);
 
-    return { changeTodosFilter, counterTodosIncompleted, filterTodosBy, theme, todos };
+    return { 
+      changeTodosFilter,
+      counterTodosIncompleted,
+      filterTodosBy,
+      removeTodosCompleted,
+      theme,
+      todos,
+    };
   },
 }
 </script>
