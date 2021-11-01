@@ -19,7 +19,7 @@
           <!-- end body list -->
 
           <!-- init footer list -->
-          <div class="flex flex-wrap justify-between items-center rounded-b-lg text-fore-tertiary">
+          <div class="flex flex-wrap justify-between items-center rounded-b-lg text-fore-secondary dark:text-fore-tertiary">
             <div class="py-4 pl-5 flex-1 flex bg-back-secondary rounded-bl-lg">
               <span class="text-sm">{{ counterTodosIncompleted }} Items left</span>
             </div>
@@ -28,21 +28,21 @@
               <button
                 @click="changeTodosFilter('all')"
                 :class="{ 'text-accent': filterTodosBy === 'all' }"
-                class="font-bold hover:text-white rounded-lg mx-2 outline-none focus:shadow-outline"
+                class="font-bold hover:text-fore-primary rounded-lg mx-2 outline-none focus:shadow-outline dark:hover:text-white"
               >
                 All
               </button>
               <button
                 @click="changeTodosFilter('incomplete')"
                 :class="{ 'text-accent': filterTodosBy === 'incomplete' }"
-                class="font-bold hover:text-white rounded-lg mx-2 outline-none focus:shadow-outline"
+                class="font-bold hover:text-fore-primary rounded-lg mx-2 outline-none focus:shadow-outline dark:hover:text-white"
               >
                 Incomplete
               </button>
               <button
                 @click="changeTodosFilter('completed')"
                 :class="{ 'text-accent': filterTodosBy === 'completed' }"
-                class="font-bold hover:text-white rounded-lg mx-2 outline-none focus:shadow-outline"
+                class="font-bold hover:text-fore-primary rounded-lg mx-2 outline-none focus:shadow-outline dark:hover:text-white"
               >
                 Completed
               </button>
@@ -51,7 +51,7 @@
             <div class="py-4 pr-5 flex-1 flex justify-end bg-back-secondary rounded-br-lg">
               <button
                 @click="removeTodosCompleted"
-                class="text-right hover:text-white text-sm rounded-lg mx-0 outline-none focus:shadow-outline"
+                class="text-right hover:text-fore-primary text-sm rounded-lg mx-0 outline-none focus:shadow-outline dark:hover:text-white"
               >
                 Clear completed
               </button>
