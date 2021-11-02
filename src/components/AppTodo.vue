@@ -66,7 +66,7 @@
 
 <script>
 
-import { computed, provide, ref, onBeforeMount, watchEffect, } from "vue";
+import { computed, provide, ref, watchEffect, } from "vue";
 
 import AppButtomTheme from "@/components/AppButtomTheme";
 import AppTodoForm from "@/components/AppTodoForm";
@@ -80,34 +80,33 @@ export default {
     AppTodoList
   },
   setup() {
-    const todos = ref([]);
-    const theme = ref(null);
     const filterTodosBy = ref("all");
+    let theme = getInitialTheme();
+    let todos = getTodos();
 
-    onBeforeMount(() => {
-      theme.value = getInitialTheme();
-    });
-
-    if (localStorage.getItem("todos")) {
-      todos.value = JSON.parse(localStorage.getItem("todos"));
-    }
-
-    const getInitialTheme = () => {
-      if (typeof window !== 'undefined' && window.localStorage) {
-
-        const storedPrefs = window.localStorage.getItem('color-theme');
-        if (typeof storedPrefs === 'string') {
-          return storedPrefs
+    function getInitialTheme() {
+      if (typeof window !== "undefined" && window.localStorage) {
+        const storedPrefs = window.localStorage.getItem("color-theme");
+        if (typeof storedPrefs === "string") {
+          return ref(storedPrefs);
         }
 
-        const userMedia = window.matchMedia('(prefers-color-scheme: dark)');
+        const userMedia = window.matchMedia("(prefers-color-scheme: dark)");
         if (userMedia.matches) {
-          return 'dark'
+          return ref("dark");
         }
       }
+ 
+      return ref("light");
+    }
 
-      return 'light'
-    };
+    function getTodos() {
+      if (localStorage.getItem("todos")) {
+        const StoredTodos = JSON.parse(localStorage.getItem("todos"));
+        return ref(StoredTodos);
+      }
+      return ref([]);
+    }
 
     const counterTodosIncompleted = computed(() => {
       return todos.value.filter(todo => todo.completed === false).length;
@@ -126,7 +125,7 @@ export default {
         ? document.querySelector("html").classList.remove("dark")
         : document.querySelector("html").classList.add("dark");
 
-
+      localStorage.setItem("color-theme", theme.value);
       localStorage.setItem("todos", JSON.stringify(todos.value));
     });
 
